@@ -2439,4 +2439,34 @@ print(t_test_result2)
 #  0.2923152 0.3466307
 #sample estimates:
 #  mean in group High mean in group Medium 
-#0.4255425            0.1060696 
+
+sessionInfo()
+#R version 4.5.0 (2025-04-11)
+#Platform: aarch64-apple-darwin20
+#Running under: macOS Sonoma 14.5
+
+#Matrix products: default
+#BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib 
+#LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
+
+#locale:
+#  [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+#time zone: America/Los_Angeles
+#tzcode source: internal
+
+#attached base packages:
+#  [1] stats     graphics  grDevices utils     datasets  methods   base     
+
+#other attached packages:
+#[1] gridExtra_2.3          rworldmap_1.3-8        sp_2.2-0               sf_1.0-21             
+#[5] readxl_1.4.5           randomForest_4.7-1.2   rlang_1.1.6            gsynth_1.2.1          
+#[9] broom_1.0.8            did2s_1.0.2            lmtest_0.9-40          zoo_1.8-14            
+#[13] sandwich_3.1-1         did_2.1.2              car_3.1-3              carData_3.0-5         
+#[17] extrafont_0.19         ggeffects_2.2.1        e1071_1.7-16           fixest_0.12.1         
+#[21] margins_0.3.28         marginaleffects_0.26.0 caret_7.0-1            lattice_0.22-7        
+#[25] corrr_0.4.4            DataExplorer_0.8.3     countrycode_1.6.1      mice_3.18.0           
+#[29] lfe_3.1.1              Matrix_1.7-3           WDI_2.7.9              skimr_2.1.5           
+#[33] haven_2.5.5            lubridate_1.9.4        forcats_1.0.0          stringr_1.5.2         
+#[37] dplyr_1.1.4            purrr_1.1.0            readr_2.1.5            tidyr_1.3.1           
+#[41] tibble_3.3.0           ggplot2_4.0.0          tidyverse_2.0.0    
