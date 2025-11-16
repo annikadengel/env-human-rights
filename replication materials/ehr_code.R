@@ -744,9 +744,13 @@ ggplot(plot_data, aes(x = year, y = env_index_gls)) +
     strip.text = element_text(size = 12),
     axis.text = element_text(size = 14),
     axis.title = element_text(size = 14), 
-    plot.title = element_text(size = 14, hjust = 0.5),
+    axis.title.x = element_text(
+      size = 14,
+      margin = ggplot2::margin(t = 10, r = 0, b = 0, l = 0)
+    ),
+    plot.title = element_text(size = 14),
     plot.title.position = "plot",
-    plot.caption = element_text(size = 12)
+    plot.caption = element_text(size = 12),
   )
 
 # index comparisons
