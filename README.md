@@ -10,3 +10,5 @@ The following files are required to run the main analysis code, ehr_code.R, usin
 The environmental index, which serves as the dependent variable of the analysis, was contructed in Stata 19.5 with creating_env_index.do. The resulting dataset is env_index_gls.csv.
 
 To avoid the first time-intensive imputation process, the file final_panel_data.rds can be read-in at line 811 of ehr_code.R. Similarly, for the second imputation process, the file imp_data_gs.dta can be read-in at line 1214. 
+
+For any questions regarding these materials, please reach out to adengel@ucsd.edu. 
