@@ -1,4 +1,4 @@
-These are the replication materials accompany the paper "The Capacity Paradox: Rethinking When Environmental Human Rights Matter." 
+These are the replication materials that accompany the paper "The Capacity Paradox: Rethinking When Environmental Human Rights Matter" by Annika Dengel. 
 
 The following files are required to run the main analysis code, ehr_code.R, using R version 4.5.0. A list of packages used and their versions are specified within the code at line 2565. 
 
@@ -9,4 +9,4 @@ The following files are required to run the main analysis code, ehr_code.R, usin
 
 The environmental index, which serves as the dependent variable of the analysis, was contructed in Stata 19 with creating_env_index.do. The resulting dataset is env_index_gls.csv.
 
-To avoid the first time-intensive imputation process, the file final_panel_data.rds can be read-in at line 811 of ehr_code.R. Similarly, for the second imputation, the file imp_data_gs.dta can be read in at line 1214. 
+To avoid the first time-intensive imputation process, the file final_panel_data.rds can be read-in at line 811 of ehr_code.R. Similarly, for the second imputation process, the file imp_data_gs.dta can be read-in at line 1214. 
