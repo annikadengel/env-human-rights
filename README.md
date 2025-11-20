@@ -7,7 +7,7 @@ ehr recognition years.csv — Contains the recognition years for environmental r
 
 V-Dem-CY-Full+Others-v15.rds — V-Dem dataset version 15.
 
-qog_ei_ts_sept21.dta — World Bank’s Quality of Government Environmental Data.
+qog_ei_ts_sept21.dta — University of Gothenburg’s Quality of Government Environmental Data.
 
 POLCON_2021_VDEM.xlsx — POLCON data from V-Dem.
 
