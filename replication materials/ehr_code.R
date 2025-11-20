@@ -1006,7 +1006,19 @@ plot(out)
 # part II: imputing the data for the covariates
 # -------------------------------------------------------------
 # this rewrites the previous target variables
-target_vars <- c("env_index_gls","v2x_libdem", "capacity", "NY.GNP.PCAP.CD", "SP.POP.TOTL", "v2x_rule")
+#target_vars <- c("env_index_gls","v2x_libdem", "capacity", "NY.GNP.PCAP.CD", "SP.POP.TOTL", "v2x_rule")
+
+index_robustness <- read_csv("/Users/annikadengel/Desktop/env_index_gls_robustness.csv")
+colnames(index_robustness)
+
+skim(index_robustness)
+
+index_robustness <- index_robustness |> select(-wdi_fossil, -edgar_pm25, -renew_output, -wdi_co2, -env_index_gls)
+final_panel_data <- final_panel_data |> left_join(index_robustness, by = c("ccodecow", "year"))
+
+# adjusted for the index robustness check
+target_vars <- c("env_index_gls","v2x_libdem", "capacity", "NY.GNP.PCAP.CD", "SP.POP.TOTL", "v2x_rule",
+                 "env_index_no_fossil", "env_index_no_pm25", "env_index_no_co2", "env_index_no_renew")
 
 vdem_filtered <- vdem_data |>
   select(country_name, COWcode, year, starts_with("e"), starts_with("v2x_")) |>
@@ -2444,6 +2456,155 @@ print(t_test_result2)
 #sample estimates:
 #  mean in group High mean in group Medium 
 
+
+# -------------------------------------------------------------
+# index leave-one-out robustness
+# -------------------------------------------------------------
+colnames(index_robustness)
+skim(index_robustness)
+
+index_robust_gsc <- function(sample) {
+
+  # the leave-one-out options are (1) env_index_no_fossil, (2) env_index_no_pm25, (3) env_index_no_co2
+  if(sample == "full") {
+    
+    gsc_no_fossil <- gsynth(
+      env_index_no_fossil ~ treatment + v2x_libdem + log_pop + log_gnp + capacity,
+      data = imp_data_gs,
+      index = c("ccodecow", "year"),
+      force = "two-way",
+      r = c(0, 5),
+      CV = TRUE,
+      se = TRUE,
+      nboots = 1000,
+      inference = "parametric",
+      parallel = FALSE,
+      min.T0 = 7
+    )
+    
+    print(gsc_no_fossil)
+    
+    gsc_no_pm25 <- gsynth(
+      env_index_no_pm25 ~ treatment + v2x_libdem + log_pop + log_gnp + capacity,
+      data = imp_data_gs,
+      index = c("ccodecow", "year"),
+      force = "two-way",
+      r = c(0, 5),
+      CV = TRUE,
+      se = TRUE,
+      nboots = 1000,
+      inference = "parametric",
+      parallel = FALSE,
+      min.T0 = 7
+    )
+    
+    print(gsc_no_pm25)
+    
+    gsc_no_co2 <- gsynth(
+      env_index_no_co2 ~ treatment + v2x_libdem + log_pop + log_gnp + capacity,
+      data = imp_data_gs,
+      index = c("ccodecow", "year"),
+      force = "two-way",
+      r = c(0, 5),
+      CV = TRUE,
+      se = TRUE,
+      nboots = 1000,
+      inference = "parametric",
+      parallel = FALSE,
+      min.T0 = 7
+    )
+    
+    print(gsc_no_co2)
+    
+    gsc_no_renew <- gsynth(
+      env_index_no_renew ~ treatment + v2x_libdem + log_pop + log_gnp + capacity,
+      data = irc_stratum,
+      index = c("ccodecow", "year"),
+      force = "two-way",
+      r = c(0, 5),
+      CV = TRUE,
+      se = TRUE,
+      nboots = 1000,
+      inference = "parametric",
+      parallel = FALSE,
+      min.T0 = 7
+    )
+    
+    print(gsc_no_renew)
+    
+  } else {
+    irc_stratum <- imp_data_gs |> filter(capacity_group == sample)
+    
+    gsc_no_fossil <- gsynth(
+      env_index_no_fossil ~ treatment + v2x_libdem + log_pop + log_gnp + capacity,
+      data = irc_stratum,
+      index = c("ccodecow", "year"),
+      force = "two-way",
+      r = c(0, 5),
+      CV = TRUE,
+      se = TRUE,
+      nboots = 1000,
+      inference = "parametric",
+      parallel = FALSE,
+      min.T0 = 7
+    )
+    
+    print(gsc_no_fossil)
+    
+    gsc_no_pm25 <- gsynth(
+      env_index_no_pm25 ~ treatment + v2x_libdem + log_pop + log_gnp + capacity,
+      data = irc_stratum,
+      index = c("ccodecow", "year"),
+      force = "two-way",
+      r = c(0, 5),
+      CV = TRUE,
+      se = TRUE,
+      nboots = 1000,
+      inference = "parametric",
+      parallel = FALSE,
+      min.T0 = 7
+    )
+    
+    print(gsc_no_pm25)
+    
+    gsc_no_co2 <- gsynth(
+      env_index_no_co2 ~ treatment + v2x_libdem + log_pop + log_gnp + capacity,
+      data = irc_stratum,
+      index = c("ccodecow", "year"),
+      force = "two-way",
+      r = c(0, 5),
+      CV = TRUE,
+      se = TRUE,
+      nboots = 1000,
+      inference = "parametric",
+      parallel = FALSE,
+      min.T0 = 7
+    )
+    
+    print(gsc_no_co2)
+    
+    gsc_no_renew <- gsynth(
+      env_index_no_renew ~ treatment + v2x_libdem + log_pop + log_gnp + capacity,
+      data = irc_stratum,
+      index = c("ccodecow", "year"),
+      force = "two-way",
+      r = c(0, 5),
+      CV = TRUE,
+      se = TRUE,
+      nboots = 1000,
+      inference = "parametric",
+      parallel = FALSE,
+      min.T0 = 7
+    )
+    
+    print(gsc_no_renew)
+  }
+}
+
+index_robust_gsc("medium")
+
+
+# -------------------------------------------------------------
 sessionInfo()
 #R version 4.5.0 (2025-04-11)
 #Platform: aarch64-apple-darwin20
